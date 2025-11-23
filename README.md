@@ -1,5 +1,13 @@
 # 🚀 Test Technique WeWard : Health Data App
 
+<div align="center">
+  <img 
+    src="src/assets/images/health-data-screenshot.png" 
+    alt="Screenshot de l'application" 
+    width="250" 
+  />
+</div>
+
 ## 🎯 Objectif du Projet
 
 Ce projet est une implémentation simple d'un compteur de pas sur **React Native**, réalisée dans le cadre d'un test technique pour WeWard.
