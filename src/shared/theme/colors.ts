@@ -1,0 +1,18 @@
+export const colors = {
+  primary: '#007bff',
+  secondary: '#6c757d',
+  background: '#ffffff',
+  text: '#212529',
+  white: '#ffffff',
+  black: '#000000',
+  gray: '#f8f9fa',
+  gradientStart: '#3421FF',
+  gradientEnd: '#3731FF',
+  cardBackground: '#10101E',
+  toggleSelected: '#62636F',
+  toggleUnselected: '#282836',
+  error: '#ff0000',
+  errorBackground: 'rgba(255, 235, 238, 0.2)',
+  errorBorder: 'rgba(198, 40, 40, 0.5)',
+  errorText: '#ffcdd2',
+};

@@ -1,97 +1,85 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🚀 Test Technique WeWard : Health Data App
 
-# Getting Started
+## 🎯 Objectif du Projet
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Ce projet est une implémentation simple d'un compteur de pas sur **React Native**, réalisée dans le cadre d'un test technique pour WeWard.
 
-## Step 1: Start Metro
+L'objectif principal était d'intégrer le comptage de pas en utilisant la **Recording API** du module **Google Fit (Android)** pour garantir une consommation d'énergie minimale et une fiabilité des données.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+---
+## 📱 Ecrans bonus
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+J'ai rajouté des écrans Bonus pour expliquer au User pourquoi on a besoin de la permission, l'orienter s'il refuse, ainsi qu'un splashscreen basique.
 
-```sh
-# Using npm
-npm start
+---
 
-# OR using Yarn
-yarn start
-```
+## ⏳ Timebox & Contraintes
 
-## Step 2: Build and run your app
+J'ai choisi de *timeboxer* cet exercice à **3 heures** pour simuler un véritable "challenge" technique et pour laisser des pistes de discussion pour l'entretien.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+> ⏱️ **Note sur le temps :** Environ **1h10** de ce temps a été consacré à la résolution de problèmes d'environnement React Native (nouveau Mac qui a 2 semaines !, configuration JDK, sélection des versions, etc.). Le temps restant a été pleinement dédié au développement de la fonctionnalité.
 
-### Android
+---
 
-```sh
-# Using npm
-npm run android
+## ⚙️ Choix Techniques & Architecture
 
-# OR using Yarn
-yarn android
-```
+### ⚛️ Stack Technique
 
-### iOS
+* **Framework :** React Native
+* **Plateforme cible :** Android (pour l'intégration Google Fit Recording API)
+* **Comptage de Pas :** Google Fit Recording API (via un **Native Module** Android)
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+### 📂 Architecture : Vers le **Feature-Based Design**
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+Pour une petite application comme celle-ci, une architecture classique (avec des dossiers `components`, `screens`, `store`, `thunks`, etc.) aurait été suffisante.
 
-```sh
-bundle install
-```
+Cependant, j'ai profité de l'occasion pour initier une structure orientée **Feature-Based Design**.
 
-Then, and every time you update your native dependencies, run:
+Même sans appels API complexes ni de base de données locale, cette approche est plus **évolutive**. Même si pas de Repository et d'abstraction pour l'instant, ça ouvre à une séparation des domaines. Je suis quelqu'un d'ouvert à tout type d'archi (sauf spaghetti 😂), y'a toujours des avantages et inconvénients à chacune.
 
-```sh
-bundle exec pod install
-```
+### 🎨 Design & Intégration Figma
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+J'ai essayé de coller au maximum au design fourni par **Figma**.
 
-```sh
-# Using npm
-npm run ios
+Étant donné que React Native utilise les **densité-indépendantes pixels (dp)** et non les pixels (px) natifs du design, j'ai dû ajuster les valeurs "à l'œil" pour obtenir le rendu visuel le plus fidèle possible sur les différentes densités d'écran. Ça rendait bizarre avec les valeurs du Figma
 
-# OR using Yarn
-yarn ios
-```
+---
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 🛠️ Pistes d'Amélioration & Prochaines Étapes
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Selon moi, avec plus de temps, voici les axes sur lesquels j'aurais pu aller plus loin :
 
-## Step 3: Modify your app
+### 1. **Abstraction du Module Natif (Android)**
 
-Now that you have successfully run the app, let's make changes!
+* **Le Concept :** Aujourd'hui, on utilise la Recording API, mais si demain les besoins changent (ex: autre API ou autre source de données), je ne veux pas que ça impacte tout le code React Native.
+* **La Solution :** Mettre en place une **Interface** côté Android pour le module de *Fitness*. L'implémentation actuelle de la Recording API deviendrait une classe concrète. Cela assure une **isolation totale** de la logique de comptage.
+* Utiliser **Hilt** (ou Koin) pour l'injection de dépendances côté Android permettrait de basculer d'une implémentation à une autre sans modifier l'application.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+### 2. **Localisation / Internationalisation (i18n)**
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+* **Le Concept :** Rendre l'application prête pour plusieurs langues.
+* **La Solution :** Traduire tous les textes statiques avec **i18n**.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+### 3. **Fonts**
 
-## Congratulations! :tada:
+* **La Solution :** Intégrer la police de caractères **Inter** pour coller parfaitement au design.
 
-You've successfully run and modified your React Native App. :partying_face:
+### 4. **Mise à Jour des Données en Temps Réel (Live Update)**
 
-### Now what?
+* **Le Concept :** Pour une meilleure expérience utilisateur, rafraîchir les données sans nécessiter une action manuelle.
+* **La Solution :** Mettre en place un mécanisme de rafraîchissement périodique (ex : toutes les 30 secondes) via un simple **`useEffect`** bien géré (avec un `setInterval` et un nettoyage via la fonction de retour de `useEffect` pour éviter les fuites de mémoire). *Ceci n'était pas dans les consignes, j'ai donc choisi de ne pas le faire pour rester focus sur le cœur de la demande.*
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+### 5. **Réflexion Architecturale Avancée**
 
-# Troubleshooting
+* J'ai récemment découvert le **Feature-Sliced Design** (`https://feature-sliced.design/`) et je trouve que c'est une approche très pertinente pour les applications mobiles complexes. J'ai hésité à l'implémenter, mais par souci de rigueur (et de temps !), je n'ai pas voulu tenter une architecture que je n'avais pas encore suffisamment approfondie.
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+---
 
-# Learn More
+## 🛠️ Démarrer le Projet
 
-To learn more about React Native, take a look at the following resources:
+(Vous savez déjà comment faire mais c'est pour peupler le README 😂)
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+1.  Cloner le dépôt : `git clone [URL]`
+2.  Installer les dépendances : `npm install` ou `yarn install`
+3.  Lancer sur Android : `yarn android`
+---

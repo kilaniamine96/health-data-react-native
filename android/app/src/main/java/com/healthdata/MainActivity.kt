@@ -7,16 +7,22 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate
 
 class MainActivity : ReactActivity() {
 
-  /**
-   * Returns the name of the main component registered from JavaScript. This is used to schedule
-   * rendering of the component.
-   */
-  override fun getMainComponentName(): String = "HealthData"
+    override fun getMainComponentName(): String = "HealthData"
 
-  /**
-   * Returns the instance of the [ReactActivityDelegate]. We use [DefaultReactActivityDelegate]
-   * which allows you to enable New Architecture with a single boolean flags [fabricEnabled]
-   */
-  override fun createReactActivityDelegate(): ReactActivityDelegate =
-      DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+    override fun createReactActivityDelegate(): ReactActivityDelegate {
+        return DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        try {
+            FitnessModule.instance?.onRequestPermissionsResult(requestCode, grantResults)
+        } catch (e: Exception) {
+            android.util.Log.e("MainActivity", "Error handling permission result", e)
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
 }
