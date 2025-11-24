@@ -72,12 +72,26 @@ Selon moi, avec plus de temps, voici les axes sur lesquels j'aurais pu aller plu
 
 * **La Solution :** Intégrer la police de caractères **Inter** pour coller parfaitement au design.
 
-### 4. **Mise à Jour des Données en Temps Réel (Live Update)**
+### 4. **Tests**
+Le développement a été priorisé sur l'implémentation du cœur de la fonctionnalité. J'ai néanmoins conscience que la couverture de tests est essentielle pour la stabilité et la maintenabilité à long terme.
+
+📝 Stratégie de Test
+Si le cadre du challenge le permettait, ma stratégie se serait concentrée sur :
+
+Tests Unitaires (Jest) : Couverture des fonctions utilitaires et de la logique métier côté JavaScript pour garantir leur fiabilité.
+
+Tests d'Intégration / E2E :
+
+Le point critique est la validation de la communication bidirectionnelle entre React Native et le Native Module Android.
+Tester les scénarios liés aux permissions Google Fit (acceptation, refus, états intermédiaires), cruciaux pour l'UX.
+En résumé : Mon attention aurait porté en priorité sur la robustesse de l'intégration native, cœur de cet exercice technique.
+
+### 5. **Mise à Jour des Données en Temps Réel (Live Update)**
 
 * **Le Concept :** Pour une meilleure expérience utilisateur, rafraîchir les données sans nécessiter une action manuelle.
 * **La Solution :** Mettre en place un mécanisme de rafraîchissement périodique (ex : toutes les 30 secondes) via un simple **`useEffect`** bien géré (avec un `setInterval` et un nettoyage via la fonction de retour de `useEffect` pour éviter les fuites de mémoire). *Ceci n'était pas dans les consignes, j'ai donc choisi de ne pas le faire pour rester focus sur le cœur de la demande.*
 
-### 5. **Réflexion Architecturale Avancée**
+### 6. **Réflexion Architecturale Avancée**
 
 * J'ai récemment découvert le **Feature-Sliced Design** (`https://feature-sliced.design/`) et je trouve que c'est une approche très pertinente pour les applications mobiles complexes. J'ai hésité à l'implémenter, mais par souci de rigueur (et de temps !), je n'ai pas voulu tenter une architecture que je n'avais pas encore suffisamment approfondie.
 
