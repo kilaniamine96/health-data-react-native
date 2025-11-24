@@ -76,12 +76,10 @@ Selon moi, avec plus de temps, voici les axes sur lesquels j'aurais pu aller plu
 Le développement a été priorisé sur l'implémentation du cœur de la fonctionnalité. J'ai néanmoins conscience que la couverture de tests est essentielle pour la stabilité et la maintenabilité à long terme.
 
 📝 Stratégie de Test
-Si le cadre du challenge le permettait, ma stratégie se serait concentrée sur :
 
-Tests Unitaires (Jest) : Couverture des fonctions utilitaires et de la logique métier côté JavaScript pour garantir leur fiabilité.
+Tests Unitaires (Jest) : Couverture des fonctions utilitaires et de la logique métier côté Typescript pour garantir leur fiabilité.
 
 Tests d'Intégration / E2E :
-
 Le point critique est la validation de la communication bidirectionnelle entre React Native et le Native Module Android.
 Tester les scénarios liés aux permissions Google Fit (acceptation, refus, états intermédiaires), cruciaux pour l'UX.
 En résumé : Mon attention aurait porté en priorité sur la robustesse de l'intégration native, cœur de cet exercice technique.
